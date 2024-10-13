@@ -4,15 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2220278c-9188-4f31-a9cb-c3dcffaa92d1" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/demo/src/main/java/com/PSM/demo/Security/SecurityConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/demo/src/main/java/com/PSM/demo/Security/SecurityConfiguration.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/demo/src/main/java/com/PSM/demo/controller/AuthController.java" beforeDir="false" afterPath="$PROJECT_DIR$/demo/src/main/java/com/PSM/demo/controller/AuthController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/demo/src/main/java/com/PSM/demo/dto/UserResponseDTO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/demo/src/main/java/com/PSM/demo/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/demo/src/main/java/com/PSM/demo/service/UserService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/demo/src/main/resources/templates/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/demo/src/main/resources/templates/login.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/demo/src/main/resources/templates/register.html" beforeDir="false" afterPath="$PROJECT_DIR$/demo/src/main/resources/templates/register.html" afterDir="false" />
-    </list>
+    <list default="true" id="2220278c-9188-4f31-a9cb-c3dcffaa92d1" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -55,7 +47,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "Spring Boot.DemoApplication.executor": "Run",
-    "git-widget-placeholder": "asman",
+    "git-widget-placeholder": "main",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/Jiro Horikoshi/Lessons 4-курс/Технология командной разработки ПО/проект/demo/src/main/resources/templates",
@@ -106,7 +98,7 @@
       <workItem from="1727786073619" duration="440000" />
       <workItem from="1727786805145" duration="284000" />
       <workItem from="1727787121014" duration="533000" />
-      <workItem from="1728796202689" duration="12670000" />
+      <workItem from="1728796202689" duration="13030000" />
     </task>
     <servers />
   </component>
