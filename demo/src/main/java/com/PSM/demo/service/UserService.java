@@ -1,5 +1,6 @@
 package com.PSM.demo.service;
 
+import com.PSM.demo.dto.UserAuthDTO;
 import com.PSM.demo.dto.UserDTO;
 import com.PSM.demo.dto.UserRegistrationDTO;
 import com.PSM.demo.model.Role;
@@ -54,6 +55,19 @@ public class UserService {
 
         // Возврат DTO
         convertToUserDTO(savedUser);
+    }
+
+    public boolean authenticateUser(UserAuthDTO loginDTO) {
+        // Поиск пользователя по имени
+        User user = userRepository.findByUsername(loginDTO.getUsername())
+                .orElseThrow(() -> new RuntimeException("Пользователь не найден."));
+
+        // Проверка пароля
+        if (passwordEncoder.matches(loginDTO.getPassword(), user.getPassword())) {
+            return true; // Успешная авторизация
+        } else {
+            throw new RuntimeException("Неверный пароль.");
+        }
     }
 
     public void convertToUserDTO(User user) {

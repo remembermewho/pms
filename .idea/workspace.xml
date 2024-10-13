@@ -5,11 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2220278c-9188-4f31-a9cb-c3dcffaa92d1" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/demo/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/demo/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/demo/src/main/java/com/PSM/demo/controller/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/demo/src/main/java/com/PSM/demo/controller/MainController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/demo/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/demo/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo/src/main/java/com/PSM/demo/Security/SecurityConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/demo/src/main/java/com/PSM/demo/Security/SecurityConfiguration.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo/src/main/java/com/PSM/demo/controller/AuthController.java" beforeDir="false" afterPath="$PROJECT_DIR$/demo/src/main/java/com/PSM/demo/controller/AuthController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo/src/main/java/com/PSM/demo/dto/UserResponseDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo/src/main/java/com/PSM/demo/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/demo/src/main/java/com/PSM/demo/service/UserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo/src/main/resources/templates/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/demo/src/main/resources/templates/login.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo/src/main/resources/templates/register.html" beforeDir="false" afterPath="$PROJECT_DIR$/demo/src/main/resources/templates/register.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -20,8 +22,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Interface" />
-        <option value="HTML File" />
         <option value="CSS File" />
+        <option value="HTML File" />
         <option value="Class" />
       </list>
     </option>
@@ -56,6 +58,7 @@
     "git-widget-placeholder": "asman",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Jiro Horikoshi/Lessons 4-курс/Технология командной разработки ПО/проект/demo/src/main/resources/templates",
     "list.type.of.created.stylesheet": "CSS",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
@@ -65,6 +68,11 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Jiro Horikoshi\Lessons 4-курс\Технология командной разработки ПО\проект\demo\src\main\resources\templates" />
+    </key>
+  </component>
   <component name="RunManager">
     <configuration default="true" type="JetRunConfigurationType">
       <module name="demo" />
@@ -98,7 +106,7 @@
       <workItem from="1727786073619" duration="440000" />
       <workItem from="1727786805145" duration="284000" />
       <workItem from="1727787121014" duration="533000" />
-      <workItem from="1728796202689" duration="9714000" />
+      <workItem from="1728796202689" duration="12670000" />
     </task>
     <servers />
   </component>

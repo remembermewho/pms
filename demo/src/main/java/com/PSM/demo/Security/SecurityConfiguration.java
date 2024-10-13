@@ -32,12 +32,12 @@ public class SecurityConfiguration {
                         .requestMatchers("/home","/auth/register", "/auth/login").permitAll() // Доступ к регистрации и логину без аутентификации
                         .anyRequest().authenticated()  // Все остальные запросы требуют аутентификации
                 )
-                .formLogin(form -> form
-                        .loginPage("/auth/login")   // Своя страница логина
-                        .defaultSuccessUrl("/home")  // Куда перенаправлять после успешного входа
-                        .failureUrl("/auth/login?error=true") // Перенаправление при ошибке входа
-                        .permitAll()
-                )
+//                .formLogin(form -> form
+//                        .loginPage("/auth/login")   // Своя страница логина
+//                        .defaultSuccessUrl("/home")  // Куда перенаправлять после успешного входа
+//                        .failureUrl("/auth/login?error=true") // Перенаправление при ошибке входа
+//                        .permitAll()
+//                )
                 .logout(logout -> logout
                         .logoutUrl("/auth/logout")
                         .logoutSuccessUrl("/auth/login?logout")

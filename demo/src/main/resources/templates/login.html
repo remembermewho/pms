@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Вход</title>
-
 </head>
 <body>
 
@@ -13,7 +12,10 @@
 </header>
 
 <div class="container">
-    <form action="@{/auth/login}" method="post">
+    <div th:if="${errorMessage}" class="alert alert-danger">
+        <p th:text="${errorMessage}"></p>
+    </div>
+    <form th:action="@{/auth/login}" method="post">
         <div class="form-group">
             <label for="username">Имя пользователя:</label>
             <input type="text" id="username" name="username" required>
@@ -30,6 +32,7 @@
 <footer>
     <p>&copy; 2024 SuperSoft. Все права защищены.</p>
 </footer>
+
 <style>
     body {
         font-family: Arial, sans-serif;
@@ -113,6 +116,10 @@
         margin-top: 20px;
     }
 
+    .alert {
+        color: red;
+        margin-bottom: 10px;
+    }
 </style>
 </body>
 </html>
