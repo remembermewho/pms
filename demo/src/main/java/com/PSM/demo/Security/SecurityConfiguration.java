@@ -30,7 +30,7 @@ public class SecurityConfiguration {
         http
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/home","/auth/register", "/auth/login").permitAll() // Доступ к регистрации и логину без аутентификации
-                        .anyRequest().authenticated()  // Все остальные запросы требуют аутентификации
+                        //.anyRequest().authenticated()  // Все остальные запросы требуют аутентификации
                 )
 //                .formLogin(form -> form
 //                        .loginPage("/auth/login")   // Своя страница логина
