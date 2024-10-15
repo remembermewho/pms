@@ -4,7 +4,7 @@ import com.PSM.demo.dto.UserAuthDTO;
 import com.PSM.demo.dto.UserDTO;
 import com.PSM.demo.dto.UserRegistrationDTO;
 import com.PSM.demo.model.Role;
-import com.PSM.demo.model.User;
+import com.PSM.demo.model.UserEntity;
 import com.PSM.demo.repository.RoleRepository;
 import com.PSM.demo.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -45,13 +45,13 @@ public class UserService {
                 .orElseThrow(() -> new RuntimeException("Роль не найдена"));
 
         // Создание нового пользователя
-        User user = convertToUserEntity(registrationDTO, role);
+        UserEntity user = convertToUserEntity(registrationDTO, role);
 
         // Шифрование пароля
         user.setPassword(passwordEncoder.encode(user.getPassword()));
 
         // Сохранение пользователя
-        User savedUser = userRepository.save(user);
+        UserEntity savedUser = userRepository.save(user);
 
         // Возврат DTO
         convertToUserDTO(savedUser);
@@ -59,7 +59,7 @@ public class UserService {
 
     public boolean authenticateUser(UserAuthDTO loginDTO) {
         // Поиск пользователя по имени
-        User user = userRepository.findByUsername(loginDTO.getUsername())
+        UserEntity user = userRepository.findByUsername(loginDTO.getUsername())
                 .orElseThrow(() -> new RuntimeException("Пользователь не найден."));
 
         // Проверка пароля
@@ -70,7 +70,7 @@ public class UserService {
         }
     }
 
-    public void convertToUserDTO(User user) {
+    public void convertToUserDTO(UserEntity user) {
         UserDTO.builder()
                 .id(user.getId())
                 .username(user.getUsername())
@@ -79,8 +79,8 @@ public class UserService {
                 .build();
     }
 
-    public User convertToUserEntity(UserRegistrationDTO registrationDTO, Role role) {
-        return User.builder()
+    public UserEntity convertToUserEntity(UserRegistrationDTO registrationDTO, Role role) {
+        return UserEntity.builder()
                 .username(registrationDTO.getUsername())
                 .password(registrationDTO.getPassword()) // Пароль зашифруем позже
                 .email(registrationDTO.getEmail())

@@ -35,5 +35,5 @@ public class Task {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "assignee_id", referencedColumnName = "id", nullable = false)
-    private User assignee; // Исполнитель задачи
+    private UserEntity assignee; // Исполнитель задачи
 }

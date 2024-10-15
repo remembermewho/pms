@@ -1,33 +1,40 @@
 package com.PSM.demo.Security;
 
-import com.PSM.demo.model.User;
+import com.PSM.demo.model.Role;
+import com.PSM.demo.model.UserEntity;
 import com.PSM.demo.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class MyUserDetailService implements UserDetailsService {
 
-    @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    public MyUserDetailService(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Optional<User> user = userRepository.findByUsername(username);
-        if (user.isPresent()) {
-            User userObj = user.get();
-            return org.springframework.security.core.userdetails.User.builder()
-                    .username(userObj.getUsername())
-                    .password(userObj.getPassword())
-                    .roles(userObj.getRole().getRoleName()) // Предполагая, что у вас есть метод getRoleName() в классе Role
-                    .build();
-        } else {
-            throw new UsernameNotFoundException(username);
-        }
+        UserEntity user = userRepository.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException("Username not found."));
+        return new User(user.getUsername(), user.getPassword(), mapRolesToAuthorities(Collections.singletonList(user.getRole())));
     }
+
+    private Collection<GrantedAuthority> mapRolesToAuthorities(List<Role> roles) {
+        return roles.stream().map(role -> new SimpleGrantedAuthority(role.getRoleName())).collect(Collectors.toList());
+    }
+
 }

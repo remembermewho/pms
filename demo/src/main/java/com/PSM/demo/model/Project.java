@@ -32,7 +32,7 @@ public class Project {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "manager_id", referencedColumnName = "id", nullable = false)
-    private User manager;
+    private UserEntity manager;
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
@@ -40,7 +40,7 @@ public class Project {
             joinColumns = @JoinColumn(name = "project_id"),
             inverseJoinColumns = @JoinColumn(name = "user_id")
     )
-    private List<User> assignedUsers;
+    private List<UserEntity> assignedUsers;
 
     @OneToMany(mappedBy = "project", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Task> tasks;
