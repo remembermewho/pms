@@ -22,5 +22,5 @@ public class Role {
 
     // Обратная связь с User
     @OneToMany(mappedBy = "role")
-    private List<User> users;
+    private List<UserEntity> users;
 }
