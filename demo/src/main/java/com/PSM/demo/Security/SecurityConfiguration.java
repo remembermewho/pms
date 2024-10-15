@@ -52,7 +52,8 @@ public class SecurityConfiguration {
                 .httpBasic(withDefaults()) // Используем базовую HTTP-аутентификацию
                 .formLogin(form -> form
                         .loginPage("/auth/login")  // Страница входа
-                        .permitAll()  // Разрешить доступ к странице входа
+                        .permitAll()
+                        .defaultSuccessUrl("/personal-cabinet", true)// Разрешить доступ к странице входа
                 )
                 .logout(logout -> logout
                         .logoutUrl("/auth/logout")  // URL для выхода

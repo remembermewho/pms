@@ -62,17 +62,6 @@ public class AuthController {
         }
     }
 
-//    @PostMapping("login")
-//    public ResponseEntity<String> login(@RequestBody UserLoginDTO userLoginDTO){
-//        Authentication authentication = authenticationManager.authenticate(
-//                new UsernamePasswordAuthenticationToken(
-//                        userLoginDTO.getUsername(),
-//                        userLoginDTO.getPassword())
-//        );
-//        SecurityContextHolder.getContext().setAuthentication(authentication);
-//        return new ResponseEntity<>("User signed success.", HttpStatus.OK);
-//    }
-
     @PostMapping("/register")
     public String registerUser(@ModelAttribute UserRegistrationDTO registrationDTO, RedirectAttributes redirectAttributes) {
         try {
@@ -112,29 +101,5 @@ public class AuthController {
             return "redirect:/auth/register"; // Возврат на страницу регистрации с сообщением об ошибке
         }
     }
-
-//    @PostMapping("register")
-//    public ResponseEntity<String> register(@RequestBody UserRegistrationDTO registrationDTO){
-//        if(userRepository.existsByUsername(registrationDTO.getUsername())){
-//            return new ResponseEntity<>("Username is taken.", HttpStatus.BAD_REQUEST);
-//        }
-//
-//        UserEntity user = new UserEntity();
-//        user.setUsername(registrationDTO.getUsername());
-//        user.setPassword(passwordEncoder.encode(registrationDTO.getPassword()));
-//        user.setEmail(registrationDTO.getEmail());
-//
-//        // Поиск роли
-//        Optional<Role> roleOpt = roleRepository.findByRoleName(registrationDTO.getRoleName());
-//        if (roleOpt.isEmpty()) {
-//            return new ResponseEntity<>("Role not found.", HttpStatus.BAD_REQUEST);
-//        }
-//        Role roles = roleOpt.get();
-//        user.setRole(roles);
-//
-//        userRepository.save(user);
-//
-//        return new ResponseEntity<>("User registration success.", HttpStatus.OK);
-//    }
 
 }
