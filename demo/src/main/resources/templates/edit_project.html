@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Редактирование проекта</title>
+</head>
+<body>
+<h1>Редактирование проекта</h1>
+<form action="#" th:action="@{/projects/{id}(id=${project.id})}" method="post">
+    <label for="name">Название:</label>
+    <input type="text" id="name" name="name" th:value="${project.name}" required>
+
+    <label for="description">Описание:</label>
+    <textarea id="description" name="description" th:text="${project.description}"></textarea>
+
+    <label for="startDate">Дата начала:</label>
+    <input type="datetime-local" id="startDate" name="startDate" th:value="${#dates.format(project.startDate, 'yyyy-MM-dd\'T\'HH:mm')}" required>
+
+    <label for="endDate">Дата окончания:</label>
+    <input type="datetime-local" id="endDate" name="endDate" th:value="${#dates.format(project.endDate, 'yyyy-MM-dd\'T\'HH:mm')}">
+
+    <button type="submit">Сохранить изменения</button>
+</form>
+
+<h2>Исполнители</h2>
+<ul>
+    <th:block th:each="user : ${project.assignedUsers}">
+        <li>
+            <span th:text="${user.username}"></span>
+            <form action="#" th:action="@{/projects/{id}/remove-assignee(id=${project.id})}" method="post">
+                <input type="hidden" name="userId" th:value="${user.id}">
+                <button type="submit">Удалить исполнителя</button>
+            </form>
+        </li>
+    </th:block>
+</ul>
+
+<h2>Добавить исполнителя</h2>
+<form action="#" th:action="@{/projects/{id}/add-assignee(id=${project.id})}" method="post">
+    <select name="userId">
+        <th:block th:each="user : ${users}">
+            <option th:value="${user.id}" th:text="${user.username}"></option>
+        </th:block>
+    </select>
+    <button type="submit">Добавить исполнителя</button>
+</form>
+</body>
+</html>

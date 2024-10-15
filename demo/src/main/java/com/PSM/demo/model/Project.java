@@ -44,4 +44,28 @@ public class Project {
 
     @OneToMany(mappedBy = "project", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Task> tasks;
+
+    // Метод для добавления исполнителя
+    public void addAssignedUser(UserEntity user) {
+        this.assignedUsers.add(user);
+    }
+
+    // Метод для удаления исполнителя (если потребуется)
+    public void removeAssignedUser(UserEntity user) {
+        this.assignedUsers.remove(user);
+    }
+
+    @Override
+    public String toString() {
+        return "Project{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", startDate=" + startDate +
+                ", endDate=" + endDate +
+                ", manager=" + manager +
+                ", assignedUsers=" + assignedUsers +
+                ", tasks=" + tasks +
+                '}';
+    }
 }

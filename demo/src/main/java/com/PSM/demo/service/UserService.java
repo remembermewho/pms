@@ -9,9 +9,12 @@ import com.PSM.demo.repository.RoleRepository;
 import com.PSM.demo.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Objects;
 
 @Service
@@ -26,49 +29,6 @@ public class UserService {
     @Autowired
     private PasswordEncoder passwordEncoder; // Для шифрования паролей
 
-    public void registerUser(UserRegistrationDTO registrationDTO) {
-        // Проверка на существование пользователя с таким же именем или email
-        if (userRepository.findByUsername(registrationDTO.getUsername()).isPresent()) {
-            System.out.println("Пользователь с таким именем уже существует.");
-            throw new RuntimeException("Пользователь с таким именем уже существует.");
-        }
-        if (userRepository.findByEmail(registrationDTO.getEmail()).isPresent()) {
-            System.out.println("Пользователь с таким email уже существует.");
-            throw new RuntimeException("Пользователь с таким email уже существует.");
-        }
-        if (!Objects.equals(registrationDTO.getPassword(), registrationDTO.getConfirmPassword())){
-            System.out.println("Пароли не совпадают");
-            throw new RuntimeException("Пароли не совпадают.");
-        }
-        // Поиск роли по имени
-        Role role = roleRepository.findByRoleName(registrationDTO.getRoleName())
-                .orElseThrow(() -> new RuntimeException("Роль не найдена"));
-
-        // Создание нового пользователя
-        UserEntity user = convertToUserEntity(registrationDTO, role);
-
-        // Шифрование пароля
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-
-        // Сохранение пользователя
-        UserEntity savedUser = userRepository.save(user);
-
-        // Возврат DTO
-        convertToUserDTO(savedUser);
-    }
-
-    public boolean authenticateUser(UserAuthDTO loginDTO) {
-        // Поиск пользователя по имени
-        UserEntity user = userRepository.findByUsername(loginDTO.getUsername())
-                .orElseThrow(() -> new RuntimeException("Пользователь не найден."));
-
-        // Проверка пароля
-        if (passwordEncoder.matches(loginDTO.getPassword(), user.getPassword())) {
-            return true; // Успешная авторизация
-        } else {
-            throw new RuntimeException("Неверный пароль.");
-        }
-    }
 
     public void convertToUserDTO(UserEntity user) {
         UserDTO.builder()
@@ -86,5 +46,25 @@ public class UserService {
                 .email(registrationDTO.getEmail())
                 .role(role)
                 .build();
+    }
+
+    public List<UserEntity> getAllUsers() {
+        return userRepository.findAll();
+    }
+
+    // Метод для получения пользователя по имени
+    public UserEntity findByUsername(String username) {
+        return userRepository.findByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found: " + username));
+    }
+
+    public UserEntity findById(Long managerId) {
+        return userRepository.findById(managerId).orElseThrow(()->
+                new UsernameNotFoundException("Manager not found"));
+    }
+
+
+    public List<UserEntity> findUsersByIds(List<Long> ids) {
+        return userRepository.findAllById(ids);  // Стандартный метод JPA для поиска по списку ID
     }
 }
