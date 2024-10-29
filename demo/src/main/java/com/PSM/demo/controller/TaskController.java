@@ -82,7 +82,7 @@ public class TaskController {
         // Сохраняем задачу
         taskService.saveTask(newTask);
 
-        // Перенаправляем на страницу задач исполнителя
+        // Перенаправляем на страницу задач исполнителяas
         return "redirect:/tasks/assignee/" + assigneeId + "/project/" + projectId;
     }
 
