@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Задачи исполнителя</title>
+</head>
+<body>
+<h2>Задачи исполнителя [[${assignee.username}]] в проекте [[${project.name}]]</h2>
+
+<!-- Кнопка для добавления новой задачи -->
+<a th:href="@{/tasks/add/assignee/{assigneeId}/project/{projectId}(assigneeId=${assignee.id}, projectId=${project.id})}">Добавить задачу</a>
+
+<table>
+    <thead>
+    <tr>
+        <th>Название</th>
+        <th>Описание</th>
+        <th>Статус</th>
+        <th>Срок выполнения</th>
+        <th>Изменить срок</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="task : ${tasks}">
+        <td th:text="${task.title}"></td>
+        <td th:text="${task.description}"></td>
+        <td th:text="${task.status}"></td>
+        <td th:text="${task.dueDate}"></td>
+        <td>
+            <form th:action="@{/tasks/{taskId}/updateDueDate(taskId=${task.id})}" method="post">
+                <input type="date" name="dueDate" required />
+                <button type="submit">Обновить</button>
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<a th:href="@{/projects}">Вернуться к проектам</a>
+</body>
+</html>

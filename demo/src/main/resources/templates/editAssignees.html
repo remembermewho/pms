@@ -14,6 +14,7 @@
         <li>
             <span th:text="${user.username}"></span>
             <a th:href="@{/projects/{projectId}/removeAssignee/{userId}(projectId=${project.id}, userId=${user.id})}">Удалить</a>
+            <a th:href="@{/tasks/assignee/{assigneeId}/project/{projectId}(assigneeId=${user.id}, projectId=${project.id})}">Показать задачи</a>
         </li>
     </th:block>
 </ul>

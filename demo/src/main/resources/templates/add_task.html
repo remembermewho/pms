@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Добавить задачу</title>
+</head>
+<body>
+<h2>Добавить задачу для исполнителя [[${assignee.username}]] в проекте [[${project.name}]]</h2>
+
+<form th:action="@{/tasks/add}" method="post">
+  <input type="hidden" name="assigneeId" th:value="${assignee.id}" />
+  <input type="hidden" name="projectId" th:value="${project.id}" />
+
+  <label for="title">Название:</label>
+  <input type="text" id="title" name="title" required />
+
+  <label for="description">Описание:</label>
+  <input type="text" id="description" name="description" />
+
+  <label for="status">Статус:</label>
+  <select id="status" name="status">
+    <option value="NOT_STARTED">Не начата</option>
+    <option value="IN_PROGRESS">Выполняется</option>
+    <option value="COMPLETED">Завершена</option>
+    <option value="POSTPONED">Отложена</option>
+  </select>
+
+  <label for="dueDate">Срок выполнения:</label>
+  <input type="date" id="dueDate" name="dueDate" />
+
+  <button type="submit">Сохранить задачу</button>
+</form>
+
+<a th:href="@{/tasks/assignee/{assigneeId}/project/{projectId}(assigneeId=${assignee.id}, projectId=${project.id})}">Вернуться к задачам исполнителя</a>
+</body>
+</html>

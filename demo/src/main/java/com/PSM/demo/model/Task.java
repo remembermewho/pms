@@ -4,6 +4,8 @@ import com.PSM.demo.enums.TaskStatus;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDate;
+
 @Entity
 @Getter
 @Setter
@@ -27,7 +29,7 @@ public class Task {
     private TaskStatus status; // Статус задачи (не начата, выполняется, завершена, отложена)
 
     @Column(name = "due_date")
-    private String dueDate; // Рекомендуется использовать LocalDate
+    private LocalDate dueDate; // Рекомендуется использовать LocalDate
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "project_id", referencedColumnName = "id", nullable = false)

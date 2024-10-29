@@ -1,8 +1,10 @@
 package com.PSM.demo.controller;
 
 import com.PSM.demo.model.Project;
+import com.PSM.demo.model.Task;
 import com.PSM.demo.model.UserEntity;
 import com.PSM.demo.service.ProjectService;
+import com.PSM.demo.service.TaskService;
 import com.PSM.demo.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Controller
@@ -20,10 +23,13 @@ import java.util.List;
 public class ProjectController {
     private final ProjectService projectService;
     private final UserService userService;
+    private final TaskService taskService;
+
     @Autowired
-    public ProjectController(ProjectService projectService, UserService userService) {
+    public ProjectController(ProjectService projectService, UserService userService, TaskService taskService) {
         this.projectService = projectService;
         this.userService = userService;
+        this.taskService = taskService;
     }
 
     @GetMapping
@@ -97,32 +103,6 @@ public class ProjectController {
         // Перенаправление на страницу редактирования исполнителей
         return "redirect:/projects/" + projectId + "/editAssignees";
     }
-//=================================================================================
-//    @GetMapping("/{projectId}/edit")
-//    public String editProjectPage(@PathVariable Long projectId, Model model) {
-//        Project project = projectService.findProjectById(projectId);
-//        List<UserEntity> users = userService.getAllUsers();
-//        model.addAttribute("project", project);
-//        model.addAttribute("users", users);
-//        return "edit_project"; // Шаблон для редактирования проекта
-//    }
-//
-//    @PostMapping("/{projectId}/edit")ss
-//    public String editProject(@PathVariable Long projectId, @ModelAttribute Project project) {
-//        projectService.updateProject(projectId, project); // Логика обновления проекта
-//        return "redirect:/projects"; // Перенаправление на страницу проектов
-//    }
-//
-//    @PostMapping("/{projectId}/add-assignee")
-//    public String addAssignee(@PathVariable Long projectId, @RequestParam Long userId) {
-//        projectService.addAssigneeToProject(projectId, userId); // Логика добавления исполнителя
-//        return "redirect:/projects/" + projectId + "/edit"; // Перенаправление на страницу редактирования проекта
-//    }
-//
-//    @PostMapping("/{projectId}/remove-assignee")
-//    public String removeAssignee(@PathVariable Long projectId, @RequestParam Long userId) {
-//        projectService.removeAssigneeFromProject(projectId, userId); // Логика удаления исполнителя
-//        return "redirect:/projects/" + projectId + "/edit"; // Перенаправление на страницу редактирования проекта
-//    }
+
 
 }
