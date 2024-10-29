@@ -92,7 +92,6 @@ public class TaskController {
         task.setDueDate(dueDate); // Обновите срок выполнения
         taskService.saveTask(task); // Сохраните изменения
 
-        // Перенаправьте пользователя обратно на страницу задач исполнителя
         return "redirect:/tasks/assignee/" + task.getAssignee().getId() + "/project/" + task.getProject().getId();
     }
 }
