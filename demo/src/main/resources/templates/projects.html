@@ -4,6 +4,92 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Проекты</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        h1 {
+            color: #007bff;
+            font-size: 2.5em;
+        }
+
+        h2 {
+            color: #333;
+            font-size: 1.8em;
+            margin-top: 20px;
+            margin-bottom: 15px;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+            width: 100%;
+            max-width: 800px;
+        }
+
+        li {
+            background: #fff;
+            border: 1px solid #ddd;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        li a {
+            font-weight: bold;
+            color: #007bff;
+            font-size: 1.2em;
+            text-decoration: none;
+        }
+
+        li a:hover {
+            color: #0056b3;
+        }
+
+        p {
+            margin: 5px 0;
+            color: #555;
+        }
+
+        button {
+            padding: 8px 12px;
+            font-size: 1em;
+            color: #fff;
+            background-color: #28a745;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #218838;
+        }
+
+        a.create-project {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 1.1em;
+            color: #fff;
+            background-color: #007bff;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+
+        a.create-project:hover {
+            background-color: #0056b3;
+        }
+    </style>
 </head>
 <body>
 <h1>Ваши проекты</h1>
@@ -12,7 +98,6 @@
 <ul>
     <th:block th:each="project : ${managedProjects}">
         <li>
-            <!-- Ссылка на редактирование проекта -->
             <a th:href="@{/projects/{id}(id=${project.id})/edit}" th:text="${project.name}"></a>
             <p th:text="${project.description}"></p>
             <p>Дата начала: <span th:text="${#temporals.format(project.startDate, 'dd.MM.yyyy HH:mm')}"></span></p>
@@ -21,8 +106,6 @@
                       th:text="${#temporals.format(project.endDate, 'dd.MM.yyyy HH:mm')}"></span>
                 <span th:if="${project.endDate == null}">Дата окончания не указана</span>
             </p>
-
-            <!-- Кнопка для перехода на страницу изменения исполнителей -->
             <a th:href="@{/projects/{id}/editAssignees(id=${project.getId()})}">
                 <button>Изменение исполнителей</button>
             </a>
@@ -46,6 +129,6 @@
     </th:block>
 </ul>
 
-<a href="/projects/create">Создать новый проект</a>
+<a href="/projects/create" class="create-project">Создать новый проект</a>
 </body>
 </html>
