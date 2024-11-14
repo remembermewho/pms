@@ -10,7 +10,12 @@ import java.util.List;
 
 @Repository
 public interface TaskRepository extends JpaRepository<Task, Long> {
-    // Дополнительные методы запросов могут быть определены здесь
+    // Задачи, назначенные определенному исполнителю
     List<Task> findByAssignee(UserEntity assignee);
+
+    // Задачи для определенного исполнителя в рамках проекта
     List<Task> findByAssigneeIdAndProjectId(Long assigneeId, Long projectId);
+
+    // Задачи для конкретного проекта
+    List<Task> findByProject(Project project);
 }
