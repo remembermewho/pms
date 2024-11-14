@@ -14,6 +14,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @Table(name = "tasks")
 public class Task {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -28,8 +29,11 @@ public class Task {
     @Column(name = "status", nullable = false)
     private TaskStatus status; // Статус задачи (не начата, выполняется, завершена, отложена)
 
-    @Column(name = "due_date")
-    private LocalDate dueDate; // Рекомендуется использовать LocalDate
+    @Column(name = "start_date", nullable = false)
+    private LocalDate startDate; // Дата начала задачи
+
+    @Column(name = "due_date", nullable = false)
+    private LocalDate dueDate; // Дата окончания задачи
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "project_id", referencedColumnName = "id", nullable = false)

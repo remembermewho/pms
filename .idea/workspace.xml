@@ -6,8 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="1b38652a-3952-499d-8d41-3753886b7c66" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/demo/src/main/java/com/PSM/demo/DemoApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/demo/src/main/java/com/PSM/demo/DemoApplication.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/demo/src/main/java/com/PSM/demo/controller/TaskController.java" beforeDir="false" afterPath="$PROJECT_DIR$/demo/src/main/java/com/PSM/demo/controller/TaskController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo/src/main/java/com/PSM/demo/model/Task.java" beforeDir="false" afterPath="$PROJECT_DIR$/demo/src/main/java/com/PSM/demo/model/Task.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/demo/src/main/java/com/PSM/demo/service/TaskService.java" beforeDir="false" afterPath="$PROJECT_DIR$/demo/src/main/java/com/PSM/demo/service/TaskService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/demo/src/main/resources/templates/tasks.html" beforeDir="false" afterPath="$PROJECT_DIR$/demo/src/main/resources/templates/tasks.html" afterDir="false" />
     </list>
@@ -49,7 +49,7 @@
     &quot;Spring Boot.DemoApplication.executor&quot;: &quot;Run&quot;,
     &quot;git-widget-placeholder&quot;: &quot;main&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/aziko/Desktop/pms&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/aziko/Desktop/pms-main&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
@@ -97,7 +97,10 @@
       <workItem from="1730373566061" duration="59000" />
       <workItem from="1730373773748" duration="450000" />
       <workItem from="1731159868593" duration="1246000" />
-      <workItem from="1731379133508" duration="3773000" />
+      <workItem from="1731379133508" duration="4558000" />
+      <workItem from="1731409072222" duration="3390000" />
+      <workItem from="1731414818727" duration="12134000" />
+      <workItem from="1731577957754" duration="982000" />
     </task>
     <servers />
   </component>

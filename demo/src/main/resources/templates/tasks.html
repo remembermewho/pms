@@ -87,8 +87,9 @@
         <th>Название</th>
         <th>Описание</th>
         <th>Статус</th>
+        <th>Дата начала</th>
         <th>Срок выполнения</th>
-        <th>Изменить срок</th>
+        <th>Изменить даты</th>
     </tr>
     </thead>
     <tbody>
@@ -99,10 +100,16 @@
         <!-- Отображение статуса задачи без возможности изменения -->
         <td th:text="${task.status}"></td>
 
-        <!-- Поле для изменения срока выполнения -->
+        <!-- Поля для отображения дат начала и завершения -->
+        <td th:text="${#temporals.format(task.startDate, 'dd.MM.yyyy')}"></td>
         <td th:text="${#temporals.format(task.dueDate, 'dd.MM.yyyy')}"></td>
+
+        <!-- Форма для изменения дат начала и завершения -->
         <td>
-            <form th:action="@{/tasks/{taskId}/updateDueDate(taskId=${task.id})}" method="post">
+            <form th:action="@{/tasks/{taskId}/updateDates(taskId=${task.id})}" method="post">
+                <label>Дата начала:</label>
+                <input type="date" name="startDate" th:value="${task.startDate}" required />
+                <label>Срок:</label>
                 <input type="date" name="dueDate" th:value="${task.dueDate}" required />
                 <button type="submit">Обновить</button>
             </form>

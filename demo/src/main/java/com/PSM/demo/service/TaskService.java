@@ -47,27 +47,28 @@ public class TaskService {
                 .orElseThrow(() -> new RuntimeException("Task not found"));
     }
 
-    // Метод для обновления срока выполнения задачи и автоматического изменения статуса
-    public void updateDueDateAndStatus(Long taskId, LocalDate newDueDate) {
+    // Метод для обновления дат начала и завершения задачи и автоматического изменения статуса
+    public void updateDatesAndStatus(Long taskId, LocalDate newStartDate, LocalDate newDueDate) {
         Task task = findById(taskId);
+        task.setStartDate(newStartDate);
         task.setDueDate(newDueDate);
 
-        // Автоматически обновляем статус задачи в зависимости от новой даты
-        updateStatusBasedOnDate(task);
+        // Обновляем статус задачи на основе новых дат
+        updateStatusBasedOnDates(task);
 
         // Сохраняем изменения в базе данных
         taskRepository.save(task);
     }
 
-    // Метод, который обновляет статус задачи в зависимости от текущей даты и конечной даты
-    private void updateStatusBasedOnDate(Task task) {
+    // Метод для обновления статуса задачи на основе дат начала, завершения и текущей даты
+    private void updateStatusBasedOnDates(Task task) {
         LocalDate today = LocalDate.now();
-        if (today.isAfter(task.getDueDate())) {
-            task.setStatus(TaskStatus.COMPLETED);
-        } else if (today.isEqual(task.getDueDate())) {
-            task.setStatus(TaskStatus.IN_PROGRESS);
-        } else {
+        if (today.isBefore(task.getStartDate())) {
             task.setStatus(TaskStatus.NOT_STARTED);
+        } else if (today.isAfter(task.getDueDate())) {
+            task.setStatus(TaskStatus.COMPLETED);
+        } else {
+            task.setStatus(TaskStatus.IN_PROGRESS);
         }
     }
 

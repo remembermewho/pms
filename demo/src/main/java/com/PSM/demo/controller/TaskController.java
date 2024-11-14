@@ -8,8 +8,8 @@ import com.PSM.demo.service.ProjectService;
 import com.PSM.demo.service.TaskService;
 import com.PSM.demo.service.UserService;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -60,12 +60,14 @@ public class TaskController {
                           @RequestParam String title,
                           @RequestParam(required = false) String description,
                           @RequestParam String status,
+                          @RequestParam LocalDate startDate,
                           @RequestParam LocalDate dueDate) {
 
         Task newTask = Task.builder()
                 .title(title)
                 .description(description)
                 .status(TaskStatus.valueOf(status))
+                .startDate(startDate)
                 .dueDate(dueDate)
                 .build();
 
@@ -78,10 +80,12 @@ public class TaskController {
     }
 
     // Метод для обновления срока выполнения задачи и автоматического обновления статуса
-    @PostMapping("/{taskId}/updateDueDate")
-    public String updateDueDate(@PathVariable Long taskId, @RequestParam("dueDate") LocalDate dueDate) {
-        // Обновляем срок выполнения и статус задачи
-        taskService.updateDueDateAndStatus(taskId, dueDate);
+    @PostMapping("/{taskId}/updateDates")
+    public String updateDates(@PathVariable Long taskId,
+                              @RequestParam("startDate") LocalDate startDate,
+                              @RequestParam("dueDate") LocalDate dueDate) {
+        // Обновляем дату начала, срок выполнения и статус задачи
+        taskService.updateDatesAndStatus(taskId, startDate, dueDate);
 
         Task task = taskService.findById(taskId);
         return "redirect:/tasks/assignee/" + task.getAssignee().getId() + "/project/" + task.getProject().getId();
