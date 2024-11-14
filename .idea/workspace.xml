@@ -6,19 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="1b38652a-3952-499d-8d41-3753886b7c66" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/demo/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/demo/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/demo/src/main/resources/templates/add_task.html" beforeDir="false" afterPath="$PROJECT_DIR$/demo/src/main/resources/templates/add_task.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/demo/src/main/resources/templates/create_project.html" beforeDir="false" afterPath="$PROJECT_DIR$/demo/src/main/resources/templates/create_project.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/demo/src/main/resources/templates/editAssignees.html" beforeDir="false" afterPath="$PROJECT_DIR$/demo/src/main/resources/templates/editAssignees.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/demo/src/main/resources/templates/edit_project.html" beforeDir="false" afterPath="$PROJECT_DIR$/demo/src/main/resources/templates/edit_project.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/demo/src/main/resources/templates/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/demo/src/main/resources/templates/login.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/demo/src/main/resources/templates/logout-success.html" beforeDir="false" afterPath="$PROJECT_DIR$/demo/src/main/resources/templates/logout-success.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/demo/src/main/resources/templates/main.html" beforeDir="false" afterPath="$PROJECT_DIR$/demo/src/main/resources/templates/main.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/demo/src/main/resources/templates/personal_cabinet.html" beforeDir="false" afterPath="$PROJECT_DIR$/demo/src/main/resources/templates/personal_cabinet.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/demo/src/main/resources/templates/projects.html" beforeDir="false" afterPath="$PROJECT_DIR$/demo/src/main/resources/templates/projects.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/demo/src/main/resources/templates/register.html" beforeDir="false" afterPath="$PROJECT_DIR$/demo/src/main/resources/templates/register.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/demo/src/main/resources/templates/successAuth.html" beforeDir="false" afterPath="$PROJECT_DIR$/demo/src/main/resources/templates/successAuth.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/demo/src/main/resources/templates/successReg.html" beforeDir="false" afterPath="$PROJECT_DIR$/demo/src/main/resources/templates/successReg.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo/src/main/java/com/PSM/demo/DemoApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/demo/src/main/java/com/PSM/demo/DemoApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo/src/main/java/com/PSM/demo/controller/TaskController.java" beforeDir="false" afterPath="$PROJECT_DIR$/demo/src/main/java/com/PSM/demo/controller/TaskController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo/src/main/java/com/PSM/demo/service/TaskService.java" beforeDir="false" afterPath="$PROJECT_DIR$/demo/src/main/java/com/PSM/demo/service/TaskService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/demo/src/main/resources/templates/tasks.html" beforeDir="false" afterPath="$PROJECT_DIR$/demo/src/main/resources/templates/tasks.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -59,7 +49,7 @@
     &quot;Spring Boot.DemoApplication.executor&quot;: &quot;Run&quot;,
     &quot;git-widget-placeholder&quot;: &quot;main&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/aziko/Desktop/любая/pms&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/aziko/Desktop/pms&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
@@ -105,7 +95,9 @@
       <updated>1730274956761</updated>
       <workItem from="1730274958052" duration="1270000" />
       <workItem from="1730373566061" duration="59000" />
-      <workItem from="1730373773748" duration="286000" />
+      <workItem from="1730373773748" duration="450000" />
+      <workItem from="1731159868593" duration="1246000" />
+      <workItem from="1731379133508" duration="3773000" />
     </task>
     <servers />
   </component>

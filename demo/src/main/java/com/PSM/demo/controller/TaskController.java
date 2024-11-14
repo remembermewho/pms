@@ -34,10 +34,7 @@ public class TaskController {
             @PathVariable Long projectId,
             Model model) {
 
-        // Получаем задачи для исполнителя в указанном проекте
         List<Task> tasks = taskService.getTasksByAssigneeAndProject(assigneeId, projectId);
-
-        // Получаем информацию о пользователе и проекте для отображения в модели
         UserEntity assignee = userService.findById(assigneeId);
         Project project = projectService.findById(projectId);
 
@@ -48,8 +45,6 @@ public class TaskController {
         return "tasks"; // имя HTML-шаблона для отображения задач
     }
 
-
-    // Метод для отображения страницы добавления задачи
     @GetMapping("/add/assignee/{assigneeId}/project/{projectId}")
     public String showAddTaskForm(@PathVariable Long assigneeId,
                                   @PathVariable Long projectId,
@@ -59,39 +54,36 @@ public class TaskController {
         return "add_task";
     }
 
-    // Метод для добавления новой задачи
     @PostMapping("/add")
     public String addTask(@RequestParam Long assigneeId,
                           @RequestParam Long projectId,
                           @RequestParam String title,
                           @RequestParam(required = false) String description,
-                          @RequestParam String status, // Получаем статус как String
+                          @RequestParam String status,
                           @RequestParam LocalDate dueDate) {
-        // Создаем новую задачу и сохраняем её
+
         Task newTask = Task.builder()
                 .title(title)
                 .description(description)
-                .status(TaskStatus.valueOf(status)) // Преобразуем строку в TaskStatus
+                .status(TaskStatus.valueOf(status))
                 .dueDate(dueDate)
                 .build();
 
-        // Устанавливаем проект и исполнителя
         newTask.setProject(projectService.findById(projectId));
         newTask.setAssignee(userService.findById(assigneeId));
 
-        // Сохраняем задачу
         taskService.saveTask(newTask);
 
-        // Перенаправляем на страницу задач исполнителяas
         return "redirect:/tasks/assignee/" + assigneeId + "/project/" + projectId;
     }
 
+    // Метод для обновления срока выполнения задачи и автоматического обновления статуса
     @PostMapping("/{taskId}/updateDueDate")
     public String updateDueDate(@PathVariable Long taskId, @RequestParam("dueDate") LocalDate dueDate) {
-        Task task = taskService.findById(taskId); // Найдите задачу по ID
-        task.setDueDate(dueDate); // Обновите срок выполнения
-        taskService.saveTask(task); // Сохраните изменения
+        // Обновляем срок выполнения и статус задачи
+        taskService.updateDueDateAndStatus(taskId, dueDate);
 
+        Task task = taskService.findById(taskId);
         return "redirect:/tasks/assignee/" + task.getAssignee().getId() + "/project/" + task.getProject().getId();
     }
 }
