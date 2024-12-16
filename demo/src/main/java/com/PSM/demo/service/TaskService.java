@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class TaskService {
@@ -22,59 +21,102 @@ public class TaskService {
         this.taskRepository = taskRepository;
     }
 
-    // Получаем список задач, назначенных определенному исполнителю
+    // Получение задач, связанных с исполнителем
     public List<Task> findTasksByAssignee(UserEntity assignee) {
         return taskRepository.findByAssignee(assignee);
     }
 
-    // Получаем задачи, назначенные конкретному исполнителю в рамках проекта
+    // Получение задач для конкретного исполнителя в рамках конкретного проекта
     public List<Task> getTasksByAssigneeAndProject(Long assigneeId, Long projectId) {
         return taskRepository.findByAssigneeIdAndProjectId(assigneeId, projectId);
     }
 
-    // Получаем задачу по ID
-    public Optional<Task> getTaskById(Long taskId) {
-        return taskRepository.findById(taskId);
+    // Получение задачи по ID
+    public Task findById(Long id) {
+        return taskRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Task not found"));
     }
 
-    // Сохраняем новую задачу
+    // Сохранение новой или обновленной задачи
     public void saveTask(Task task) {
+        updateStatusBasedOnDates(task);
         taskRepository.save(task);
     }
 
-    // Обновление задачи по ID, включая автоматическое обновление статуса на основе дат
-    public void updateTask(Long taskId, Task task) {
-        task.setId(taskId);
-        updateStatusBasedOnDates(task); // Обновляем статус в зависимости от дат
-        taskRepository.save(task);
+    // Обновление задачи
+    public void updateTask(Long taskId, Task updatedTask) {
+        Task existingTask = findById(taskId);
+        existingTask.setTitle(updatedTask.getTitle());
+        existingTask.setDescription(updatedTask.getDescription());
+        existingTask.setStartDate(updatedTask.getStartDate());
+        existingTask.setDueDate(updatedTask.getDueDate());
+        existingTask.setStatus(updatedTask.getStatus());
+        existingTask.setAssignee(updatedTask.getAssignee());
+        existingTask.setProject(updatedTask.getProject());
+        saveTask(existingTask);
     }
 
-    // Метод для обновления дат начала и завершения задачи и автоматического изменения статуса
-    public void updateDatesAndStatus(Long taskId, LocalDate newStartDate, LocalDate newDueDate) {
+    // Обновление дат задачи с указанием причины
+    public void updateDatesAndReason(Long taskId, LocalDate newStartDate, LocalDate newDueDate, String reason) {
         Task task = findById(taskId);
         task.setStartDate(newStartDate);
         task.setDueDate(newDueDate);
-
-        // Обновляем статус задачи на основе новых дат
-        updateStatusBasedOnDates(task);
-
-        // Сохраняем изменения в базе данных
-        taskRepository.save(task);
+        task.setReasonForDeadlineChange(reason);
+        saveTask(task);
     }
 
-    // Метод для явного обновления статуса задачи (при необходимости вручную)
+    // Обновление статуса задачи
     public void updateTaskStatus(Long taskId, TaskStatus newStatus) {
         Task task = findById(taskId);
         task.setStatus(newStatus);
-        taskRepository.save(task);
+        saveTask(task);
     }
 
-    // Получить список задач для конкретного проекта
+    // Обновление статуса выполнения задачи
+    public void updateTaskCompletionStatus(Long taskId, Boolean isCompleted) {
+        Task task = findById(taskId);
+        task.setIsCompleted(isCompleted);
+        saveTask(task);
+    }
+
+    // Получение задач, связанных с проектом
     public List<Task> getTasksByProject(Project project) {
         return taskRepository.findByProject(project);
     }
 
-    // Метод для обновления статуса задачи на основе дат начала, завершения и текущей даты
+    // Получение задач по статусу
+    public List<Task> findTasksByStatus(TaskStatus status) {
+        return taskRepository.findByStatus(status);
+    }
+
+    // Получение задач с датой начала позже заданной
+    public List<Task> findTasksByStartDateAfter(LocalDate startDate) {
+        return taskRepository.findByStartDateAfter(startDate);
+    }
+
+    // Получение задач с датой завершения до заданной
+    public List<Task> findTasksByDueDateBefore(LocalDate dueDate) {
+        return taskRepository.findByDueDateBefore(dueDate);
+    }
+
+    // Получение задач по статусу и дате начала позже заданной
+    public List<Task> findTasksByStatusAndStartDateAfter(TaskStatus status, LocalDate startDate) {
+        return taskRepository.findByStatusAndStartDateAfter(status, startDate);
+    }
+
+    // Поиск задач по названию
+    public List<Task> searchTasksByTitle(String title) {
+        String processedTitle = (title != null && !title.isBlank()) ? "%" + title + "%" : null;
+        return taskRepository.findTasksByTitle(processedTitle);
+    }
+
+    // Поиск задач по исполнителю, проекту и названию
+    public List<Task> searchTasksByAssigneeAndProject(Long assigneeId, Long projectId, String title) {
+        String processedTitle = (title != null && !title.isBlank()) ? "%" + title + "%" : null;
+        return taskRepository.findTasksByAssigneeProjectAndTitle(assigneeId, projectId, processedTitle);
+    }
+
+    // Установка статуса задачи на основе текущей даты
     private void updateStatusBasedOnDates(Task task) {
         LocalDate today = LocalDate.now();
         if (today.isBefore(task.getStartDate())) {
@@ -84,11 +126,5 @@ public class TaskService {
         } else {
             task.setStatus(TaskStatus.IN_PROGRESS);
         }
-    }
-
-    // Найти задачу по ID с обработкой исключений, если задача не найдена
-    public Task findById(Long id) {
-        return taskRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Task not found"));
     }
 }

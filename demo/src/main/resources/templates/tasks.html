@@ -68,19 +68,47 @@
             background-color: #218838;
         }
 
-        select {
+        select, textarea {
             padding: 5px;
             border-radius: 4px;
             border: 1px solid #ddd;
+        }
+
+        .search-form {
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .search-form input, .search-form button {
+            padding: 8px;
+            font-size: 1em;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        .search-form button {
+            background-color: #007bff;
+            color: white;
+            cursor: pointer;
+        }
+
+        .search-form button:hover {
+            background-color: #0056b3;
         }
     </style>
 </head>
 <body>
 <h2>Задачи исполнителя [[${assignee.username}]] в проекте [[${project.name}]]</h2>
 
+<!-- Форма поиска по названию задачи -->
+<form class="search-form" th:action="@{/tasks/assignee/{assigneeId}/project/{projectId}(assigneeId=${assignee.id}, projectId=${project.id})}" method="get">
+    <input type="text" name="search" placeholder="Введите название задачи" th:value="${searchTerm}">
+    <button type="submit">Поиск</button>
+</form>
 <!-- Кнопка для добавления новой задачи -->
 <a th:href="@{/tasks/add/assignee/{assigneeId}/project/{projectId}(assigneeId=${assignee.id}, projectId=${project.id})}">Добавить задачу</a>
-
 <table>
     <thead>
     <tr>
@@ -89,6 +117,7 @@
         <th>Статус</th>
         <th>Дата начала</th>
         <th>Срок выполнения</th>
+        <th>Причина изменения срока</th>
         <th>Изменить даты</th>
     </tr>
     </thead>
@@ -97,12 +126,15 @@
         <td th:text="${task.title}"></td>
         <td th:text="${task.description}"></td>
 
-        <!-- Отображение статуса задачи без возможности изменения -->
+        <!-- Отображение статуса задачи -->
         <td th:text="${task.status}"></td>
 
         <!-- Поля для отображения дат начала и завершения -->
         <td th:text="${#temporals.format(task.startDate, 'dd.MM.yyyy')}"></td>
         <td th:text="${#temporals.format(task.dueDate, 'dd.MM.yyyy')}"></td>
+
+        <!-- Отображение причины изменения срока -->
+        <td th:text="${task.reasonForDeadlineChange != null ? task.reasonForDeadlineChange : 'Не указана'}"></td>
 
         <!-- Форма для изменения дат начала и завершения -->
         <td>
@@ -111,6 +143,8 @@
                 <input type="date" name="startDate" th:value="${task.startDate}" required />
                 <label>Срок:</label>
                 <input type="date" name="dueDate" th:value="${task.dueDate}" required />
+                <label>Причина:</label>
+                <textarea name="reason" placeholder="Укажите причину изменения сроков" required></textarea>
                 <button type="submit">Обновить</button>
             </form>
         </td>

@@ -3,71 +3,106 @@ package com.PSM.demo.service;
 import com.PSM.demo.model.Project;
 import com.PSM.demo.model.UserEntity;
 import com.PSM.demo.repository.ProjectRepository;
-import com.PSM.demo.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class ProjectService {
 
     private final ProjectRepository projectRepository;
-    private final UserRepository userRepository;
 
-    public ProjectService(ProjectRepository projectRepository, UserRepository userRepository) {
+    @Autowired
+    public ProjectService(ProjectRepository projectRepository) {
         this.projectRepository = projectRepository;
-        this.userRepository = userRepository;
     }
 
-    public void saveProject(Project project) {
-        projectRepository.save(project);
+    /**
+     * Найти проект по ID.
+     *
+     * @param id идентификатор проекта.
+     * @return найденный проект.
+     */
+    public Project findById(Long id) {
+        return projectRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Проект с id " + id + " не найден."));
     }
 
-    public Project findProjectById(Long projectId) {
-        return projectRepository.findById(projectId)
-                .orElseThrow(() -> new RuntimeException("Проект не найден"));
-    }
-
-    public void updateProject(Long projectId, Project project) {
-        Project existingProject = findProjectById(projectId);
-        existingProject.setName(project.getName());
-        existingProject.setDescription(project.getDescription());
-        existingProject.setStartDate(project.getStartDate());
-        existingProject.setEndDate(project.getEndDate());
-        projectRepository.save(existingProject);
-    }
-
-    public void addAssigneeToProject(Long projectId, Long userId) {
-        Project project = findProjectById(projectId);
-        Optional<UserEntity> userOpt = userRepository.findById(userId);
-        userOpt.ifPresent(project::addAssignedUser);
-        projectRepository.save(project);
-    }
-
-    public void removeAssigneeFromProject(Project project, UserEntity user) {
-        // Удаление пользователя из списка исполнителей
-        project.getAssignedUsers().remove(user);
-        // Сохранение проекта после изменений
-        projectRepository.save(project);
-    }
-
+    /**
+     * Найти проекты, которыми управляет пользователь.
+     *
+     * @param manager менеджер, управляющий проектами.
+     * @return список проектов.
+     */
     public List<Project> findByManager(UserEntity manager) {
         return projectRepository.findByManager(manager);
     }
 
+    /**
+     * Найти проекты, в которых пользователь является исполнителем.
+     *
+     * @param user пользователь-исполнитель.
+     * @return список проектов.
+     */
     public List<Project> findByAssignedUser(UserEntity user) {
         return projectRepository.findByAssignedUsers(user);
     }
 
-    public Project findById(Long id) {
-        return projectRepository.findById(id).orElseThrow(() -> new UsernameNotFoundException("Проект не найден."));
+    /**
+     * Найти проекты, которыми управляет пользователь с поиском по названию.
+     *
+     * @param manager менеджер, управляющий проектами.
+     * @param searchTerm строка поиска по названию.
+     * @return отфильтрованный список проектов.
+     */
+    public List<Project> findManagedProjects(UserEntity manager, String searchTerm) {
+        return (searchTerm == null || searchTerm.isBlank())
+                ? projectRepository.findByManager(manager)
+                : projectRepository.findByManagerAndNameContainingIgnoreCase(manager, searchTerm);
     }
 
+    /**
+     * Найти проекты, в которых пользователь является исполнителем с поиском по названию.
+     *
+     * @param user пользователь-исполнитель.
+     * @param searchTerm строка поиска по названию.
+     * @return отфильтрованный список проектов.
+     */
+    public List<Project> findAssignedProjects(UserEntity user, String searchTerm) {
+        return (searchTerm == null || searchTerm.isBlank())
+                ? projectRepository.findByAssignedUsers(user)
+                : projectRepository.findByAssignedUsersAndNameContainingIgnoreCase(user, searchTerm);
+    }
+
+    /**
+     * Сохранить проект.
+     *
+     * @param project объект проекта для сохранения.
+     */
+    public void saveProject(Project project) {
+        projectRepository.save(project);
+    }
+
+    /**
+     * Добавить исполнителей в проект.
+     *
+     * @param project проект.
+     * @param assignees список пользователей-исполнителей.
+     */
     public void addAssigneesToProject(Project project, List<UserEntity> assignees) {
-        project.getAssignedUsers().addAll(assignees);  // Добавляем всех исполнителей к проекту
-        projectRepository.save(project);  // Сохраняем изменения в базе данных
+        project.getAssignedUsers().addAll(assignees);
+        projectRepository.save(project);
+    }
+
+    /**
+     * Удалить исполнителя из проекта.
+     *
+     * @param project проект.
+     * @param user пользователь-исполнитель.
+     */
+    public void removeAssigneeFromProject(Project project, UserEntity user) {
+        project.getAssignedUsers().remove(user);
+        projectRepository.save(project);
     }
 }

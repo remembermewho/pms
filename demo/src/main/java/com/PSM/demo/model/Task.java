@@ -5,7 +5,6 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDate;
-
 @Entity
 @Getter
 @Setter
@@ -35,6 +34,9 @@ public class Task {
     @Column(name = "due_date", nullable = false)
     private LocalDate dueDate; // Дата окончания задачи
 
+    @Column(name = "reason_for_deadline_change", length = 500)
+    private String reasonForDeadlineChange; // Причина изменения сроков
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "project_id", referencedColumnName = "id", nullable = false)
     private Project project; // Проект, к которому принадлежит задача
@@ -42,4 +44,10 @@ public class Task {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "assignee_id", referencedColumnName = "id", nullable = false)
     private UserEntity assignee; // Исполнитель задачи
+
+    @Column(name = "change_reason")
+    private String changeReason; // Причина изменения сроков
+
+    @Column(name = "is_completed") // Используем объектный тип Boolean
+    private Boolean isCompleted; // Статус выполнения задачи
 }

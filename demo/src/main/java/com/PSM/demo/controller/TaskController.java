@@ -32,17 +32,25 @@ public class TaskController {
     public String getTasksForAssignee(
             @PathVariable Long assigneeId,
             @PathVariable Long projectId,
+            @RequestParam(value = "search", required = false) String searchTerm,
             Model model) {
 
-        List<Task> tasks = taskService.getTasksByAssigneeAndProject(assigneeId, projectId);
+        List<Task> tasks;
+        if (searchTerm == null || searchTerm.isBlank()) {
+            tasks = taskService.getTasksByAssigneeAndProject(assigneeId, projectId);
+        } else {
+            tasks = taskService.searchTasksByAssigneeAndProject(assigneeId, projectId, searchTerm);
+        }
+
         UserEntity assignee = userService.findById(assigneeId);
         Project project = projectService.findById(projectId);
 
         model.addAttribute("tasks", tasks);
         model.addAttribute("assignee", assignee);
         model.addAttribute("project", project);
+        model.addAttribute("searchTerm", searchTerm);
 
-        return "tasks"; // имя HTML-шаблона для отображения задач
+        return "tasks"; // Имя Thymeleaf-шаблона для отображения задач
     }
 
     @GetMapping("/add/assignee/{assigneeId}/project/{projectId}")
@@ -79,13 +87,21 @@ public class TaskController {
         return "redirect:/tasks/assignee/" + assigneeId + "/project/" + projectId;
     }
 
-    // Метод для обновления срока выполнения задачи и автоматического обновления статуса
     @PostMapping("/{taskId}/updateDates")
-    public String updateDates(@PathVariable Long taskId,
-                              @RequestParam("startDate") LocalDate startDate,
-                              @RequestParam("dueDate") LocalDate dueDate) {
-        // Обновляем дату начала, срок выполнения и статус задачи
-        taskService.updateDatesAndStatus(taskId, startDate, dueDate);
+    public String updateDatesWithReason(@PathVariable Long taskId,
+                                        @RequestParam("startDate") LocalDate startDate,
+                                        @RequestParam("dueDate") LocalDate dueDate,
+                                        @RequestParam("reason") String reason) {
+        taskService.updateDatesAndReason(taskId, startDate, dueDate, reason);
+
+        Task task = taskService.findById(taskId);
+        return "redirect:/tasks/assignee/" + task.getAssignee().getId() + "/project/" + task.getProject().getId();
+    }
+
+    @PostMapping("/{taskId}/updateCompletionStatus")
+    public String updateCompletionStatus(@PathVariable Long taskId,
+                                         @RequestParam("isCompleted") boolean isCompleted) {
+        taskService.updateTaskCompletionStatus(taskId, isCompleted);
 
         Task task = taskService.findById(taskId);
         return "redirect:/tasks/assignee/" + task.getAssignee().getId() + "/project/" + task.getProject().getId();

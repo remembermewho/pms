@@ -30,17 +30,20 @@ public class ProjectController {
     }
 
     @GetMapping
-    public String viewProjects(Model model, Authentication authentication) {
+    public String viewProjects(@RequestParam(value = "search", required = false) String searchTerm,
+                               Model model, Authentication authentication) {
         UserEntity currentUser = userService.findByUsername(authentication.getName());
 
-        List<Project> managedProjects = projectService.findByManager(currentUser);
-        List<Project> assignedProjects = projectService.findByAssignedUser(currentUser);
+        List<Project> managedProjects = projectService.findManagedProjects(currentUser, searchTerm);
+        List<Project> assignedProjects = projectService.findAssignedProjects(currentUser, searchTerm);
 
         model.addAttribute("managedProjects", managedProjects);
         model.addAttribute("assignedProjects", assignedProjects);
+        model.addAttribute("searchTerm", searchTerm); // Передаём значение поиска в шаблон
 
         return "projects";
     }
+
 
     @GetMapping("/create")
     public String createProjectPage(Model model) {
