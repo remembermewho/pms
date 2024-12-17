@@ -3,6 +3,9 @@ package com.PSM.demo.model;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Getter
 @Setter
@@ -28,4 +31,8 @@ public class UserEntity {
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.REFRESH)
     @JoinColumn(name = "role_id", referencedColumnName = "id", nullable = true)
     private Role role;
+
+    // Связь "Один ко Многим" с задачами
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<PersonalTask> personalTasks = new ArrayList<>();
 }
