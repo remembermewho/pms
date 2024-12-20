@@ -116,12 +116,26 @@
         .create-project:hover {
             background-color: #d35400;
         }
+
+        .back-button {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 12px 20px;
+            font-size: 1.2em;
+            color: white;
+            background-color: #34495e;
+            border-radius: 6px;
+            text-decoration: none;
+        }
+
+        .back-button:hover {
+            background-color: #2c3e50;
+        }
     </style>
 </head>
 <body>
 <h1>Ваши проекты</h1>
 
-<!-- Форма поиска проектов -->
 <!-- Форма поиска проектов -->
 <section class="search-container">
     <form th:action="@{/projects}" method="get">
@@ -177,5 +191,7 @@
 </section>
 
 <a href="/projects/create" class="create-project">Создать новый проект</a>
-</main>
+<br>
+<a href="/personal-cabinet" class="back-button">Вернуться в личный кабинет</a>
 </body>
+</html>

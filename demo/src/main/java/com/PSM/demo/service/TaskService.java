@@ -1,6 +1,7 @@
 package com.PSM.demo.service;
 
 import com.PSM.demo.enums.TaskStatus;
+import com.PSM.demo.model.Notification;
 import com.PSM.demo.model.Project;
 import com.PSM.demo.model.Task;
 import com.PSM.demo.model.UserEntity;
@@ -15,10 +16,12 @@ import java.util.List;
 public class TaskService {
 
     private final TaskRepository taskRepository;
+    private final NotificationService notificationService;
 
     @Autowired
-    public TaskService(TaskRepository taskRepository) {
+    public TaskService(TaskRepository taskRepository, NotificationService notificationService) {
         this.taskRepository = taskRepository;
+        this.notificationService = notificationService;
     }
 
     // Получение задач, связанных с исполнителем
@@ -41,6 +44,11 @@ public class TaskService {
     public void saveTask(Task task) {
         updateStatusBasedOnDates(task);
         taskRepository.save(task);
+
+        // Если задача завершена, уведомляем менеджера проекта
+        if (task.getStatus() == TaskStatus.COMPLETED) {
+            notifyManagerOnTaskCompletion(task);
+        }
     }
 
     // Обновление задачи
@@ -125,6 +133,16 @@ public class TaskService {
             task.setStatus(TaskStatus.COMPLETED);
         } else {
             task.setStatus(TaskStatus.IN_PROGRESS);
+        }
+    }
+
+    // Уведомление менеджера о завершении задачи
+    private void notifyManagerOnTaskCompletion(Task task) {
+        Project project = task.getProject();
+        UserEntity manager = project.getManager(); // Предполагается, что проект имеет связь с менеджером
+        if (manager != null) {
+            String message = "Задача '" + task.getTitle() + "' в проекте '" + project.getName() + "' завершена.";
+            notificationService.sendNotification(manager, message);
         }
     }
 }

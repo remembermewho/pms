@@ -6,15 +6,10 @@
   <component name="ChangeListManager">
     <list default="true" id="1b38652a-3952-499d-8d41-3753886b7c66" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/demo/src/main/java/com/PSM/demo/controller/ProjectController.java" beforeDir="false" afterPath="$PROJECT_DIR$/demo/src/main/java/com/PSM/demo/controller/ProjectController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/demo/src/main/java/com/PSM/demo/controller/TaskController.java" beforeDir="false" afterPath="$PROJECT_DIR$/demo/src/main/java/com/PSM/demo/controller/TaskController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/demo/src/main/java/com/PSM/demo/model/Task.java" beforeDir="false" afterPath="$PROJECT_DIR$/demo/src/main/java/com/PSM/demo/model/Task.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/demo/src/main/java/com/PSM/demo/repository/ProjectRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/demo/src/main/java/com/PSM/demo/repository/ProjectRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/demo/src/main/java/com/PSM/demo/repository/TaskRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/demo/src/main/java/com/PSM/demo/repository/TaskRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/demo/src/main/java/com/PSM/demo/service/ProjectService.java" beforeDir="false" afterPath="$PROJECT_DIR$/demo/src/main/java/com/PSM/demo/service/ProjectService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/demo/src/main/java/com/PSM/demo/service/TaskService.java" beforeDir="false" afterPath="$PROJECT_DIR$/demo/src/main/java/com/PSM/demo/service/TaskService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo/src/main/resources/templates/personalTasks.html" beforeDir="false" afterPath="$PROJECT_DIR$/demo/src/main/resources/templates/personalTasks.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo/src/main/resources/templates/personal_cabinet.html" beforeDir="false" afterPath="$PROJECT_DIR$/demo/src/main/resources/templates/personal_cabinet.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/demo/src/main/resources/templates/projects.html" beforeDir="false" afterPath="$PROJECT_DIR$/demo/src/main/resources/templates/projects.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/demo/src/main/resources/templates/tasks.html" beforeDir="false" afterPath="$PROJECT_DIR$/demo/src/main/resources/templates/tasks.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,6 +20,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="HTML File" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -110,6 +106,8 @@
       <workItem from="1732104310180" duration="973000" />
       <workItem from="1732534153580" duration="24149000" />
       <workItem from="1733734917958" duration="2034000" />
+      <workItem from="1734458507047" duration="1287000" />
+      <workItem from="1734666350268" duration="1510000" />
     </task>
     <servers />
   </component>

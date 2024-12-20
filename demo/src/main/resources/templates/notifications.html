@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Уведомления</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }
+
+        h2 {
+            text-align: center;
+            color: #4CAF50;
+            margin-bottom: 20px;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0 auto;
+            max-width: 600px;
+        }
+
+        li {
+            background-color: #fff;
+            margin-bottom: 10px;
+            padding: 15px 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        li span {
+            font-size: 1.1em;
+            color: #333;
+        }
+
+        li small {
+            font-size: 0.9em;
+            color: #777;
+        }
+
+        li:hover {
+            background-color: #f9f9f9;
+        }
+
+        .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            text-decoration: none;
+            font-size: 1em;
+            color: #007bff;
+            transition: color 0.3s;
+        }
+
+        .back-link:hover {
+            color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+<h2>Уведомления</h2>
+<ul>
+    <li th:each="notification : ${notifications}">
+        <span th:text="${notification.message}"></span>
+        <small th:text="${#temporals.format(notification.timestamp, 'dd.MM.yyyy HH:mm')}"></small>
+    </li>
+</ul>
+<a href="/dashboard" class="back-link">Вернуться в личный кабинет</a>
+</body>
+</html>
